@@ -1,0 +1,110 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+
+  <title>Registration Form</title>
+  <meta name="description" content="My Parse App">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.4.0.min.js"></script>
+</head>
+
+<body>
+  
+  <div id="main">
+    <h1>Please Register</h1>
+    
+    <form id="registration">
+      <div class="field">
+        <label>First Name</label>
+          <input id="firstname" type="text" />
+      </div>
+      <div class="field">
+          <label>Last Name</label>
+            <input id="lastname" type="text" />    
+      </div>
+      <div class="field">
+        <label>Address 1</label>
+          <input id="address1" type="text" />   
+      </div>
+      <div class="field">
+        <label>Address 2</label>
+          <input id="address2" type="text" />
+      </div>
+      <div class="field">
+        <label>City</label>
+          <input id="city" type="text" />   
+      </div>
+      <div class="field">
+        <label>State</label>
+          <input id="state" type="text" />
+      </div>
+      <div class="field">
+        <label>Zip (5 or 9 digit)</label>
+          <input id="zip" type="text" />
+      </div>
+      <div class="field">
+        <label>Country</label>
+          <select id="country">
+            <option value="US">US</option>
+          </select>
+      </div>
+      <button id="submitButton" onclick="submitRegistration()">Submit</button>
+
+
+
+    </form>
+
+  </div>
+
+<script type="text/javascript">
+
+  Parse.initialize("4t3AwcQGddd2DQMPJRFFGjVrUQCyicl8QdrUUqY5", "FHuYBidLocVSs3Pv7U64aYeJMqgzCvRQOyMhkcSt");
+
+function submitRegistration() {
+
+  var firstname = document.getElementById("firstname").value;
+  var lastname = document.getElementById('lastname').value;
+  var address1 = document.getElementById('address1').value;
+  var address2 = document.getElementById('address2').value;
+  var city = document.getElementById('city').value;
+  var zip = document.getElementById('zip').value;
+  var country = document.getElementById('country').value;
+
+
+  var Registration = Parse.Object.extend("RegistrationForm");
+  var register = new Registration();
+
+  alert(firstname);
+  alert(lastname);
+
+  register.set("firstname", firstname);
+  register.set("lastname", lastname);
+  register.set("address1", address1);
+  register.set("address2", address2);
+  register.set("city", city);
+  register.set("zip", zip);
+  register.set("country", country);
+
+  register.save(null, {
+    success: function(register) {
+      // Execute any logic that should take place after the object is saved.
+      alert('New object created with objectId: ' + register.id);
+    },
+    error: function(register, error) {
+      // Execute any logic that should take place if the save fails.
+      // error is a Parse.Error with an error code and message.
+      alert('Failed to create new object, with error code: ' + error.message);
+    }
+  });
+
+}
+    
+
+</script>
+
+</body>
+
+</html>
